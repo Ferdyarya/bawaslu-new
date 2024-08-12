@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Pengawasan;
 use App\Models\Petugas_lapangan;
-use App\Models\Penerimaan;
+use Illuminate\Http\Request;
 
-class PenerimaanController extends Controller
+class PengawasanController extends Controller
 {
     public function index(Request $request)
     {
         if($request->has('search')){
-            $penerimaan = Penerimaan::where('nama', 'LIKE', '%' .$request->search.'%')->simplePaginate(10);
+            $pengawasan = Pengawasan::where('nama', 'LIKE', '%' .$request->search.'%')->simplePaginate(10);
         }else{
-            $penerimaan = Penerimaan::simplePaginate(10);
+            $pengawasan = Pengawasan::simplePaginate(10);
         }
-        return view('penerimaan.index',[
-            'penerimaan' => $penerimaan
+        return view('pengawasan.index',[
+            'pengawasan' => $pengawasan
         ]);
     }
 
@@ -28,9 +28,9 @@ class PenerimaanController extends Controller
     public function create()
     {
        $petugas = Petugas_lapangan::all();
-       $penerimaan = Penerimaan::all();
-        return view('penerimaan.create', [
-            'penerimaan' => $penerimaan,
+       $pengawasan = Pengawasan::all();
+        return view('pengawasan.create', [
+            'pengawasan' => $pengawasan,
             'petugas' => $petugas
         ]);
     }
@@ -42,22 +42,21 @@ class PenerimaanController extends Controller
      */
     public function store(Request $request)
     {
-        $penerimaan = $request->all();
-        $perulanganInput = count($penerimaan["tgltugas"]);
+        $pengawasan = $request->all();
+        $perulanganInput = count($pengawasan["tgltugas"]);
 
         for ($i=0; $i < $perulanganInput; $i++) {
-            Penerimaan::create([
+            pengawasan::create([
                 'nosurat' => date('is'). '/' . 'LP'. '/' . '13' . '/' . date('Y'),
-                'tgltugas' => $penerimaan["tgltugas"][$i],
-                'tglkembali' => $penerimaan["tglkembali"][$i],
-                'total_anggaran' => $penerimaan["total_anggaran"][$i],
-                'deskripsi' => $penerimaan["deskripsi"][$i],
-                'id_petugas' => $penerimaan["id_petugas"][$i],
-                'status' => $penerimaan["status"][$i],
+                'tgltugas' => $pengawasan["tgltugas"][$i],
+                'tglpelaksana' => $pengawasan["tglpelaksana"][$i],
+                'tujuan' => $pengawasan["tujuan"][$i],
+                'penempatan' => $pengawasan["penempatan"][$i],
+                'id_petugas' => $pengawasan["id_petugas"][$i],
             ]);
         }
 
-        return redirect()->route('penerimaan.index')->with('toast_success', 'Data Telah ditambahkan');
+        return redirect()->route('pengawasan.index')->with('toast_success', 'Data Telah ditambahkan');
     }
 
     /**
@@ -76,11 +75,11 @@ class PenerimaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penerimaan $penerimaan)
+    public function edit(Pengawasan $pengawasan)
     {
       $petugas = Petugas_lapangan::all();
-       return view('penerimaan.edit', [
-           'item' => $penerimaan,
+       return view('pengawasan.edit', [
+           'item' => $pengawasan,
            'petugas' => $petugas
        ]);
     }
@@ -93,15 +92,15 @@ class PenerimaanController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, Penerimaan $penerimaan)
+    public function update(Request $request, Pengawasan $pengawasan)
     {
         $data = $request->all();
 
-        $penerimaan->update($data);
+        $pengawasan->update($data);
 
         //dd($data);
 
-        return redirect()->route('penerimaan.index')->with('success', 'Data telah berubah');
+        return redirect()->route('pengawasan.index')->with('success', 'Data telah berubah');
 
     }
 
@@ -111,9 +110,10 @@ class PenerimaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penerimaan $penerimaan)
+    public function destroy(Pengawasan $pengawasan)
     {
-        $penerimaan->delete();
-        return redirect()->route('penerimaan.index')->with('toast_success', 'Data telah berubah');
+        $pengawasan->delete();
+        return redirect()->route('pengawasan.index')->with('toast_success', 'Data telah Dihapus');
     }
+
 }

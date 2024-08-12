@@ -6,7 +6,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>Laporan Penerimaan </h1>
+                <h1>Laporan Tindak Lanjut </h1>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -53,7 +53,7 @@
         <h3 class="card-title">&nbsp;</h3>
       </div>
       <div class="card-body">
-        <form method="GET" action="/get-data-pn">
+        <form method="GET" action="/get-data-tindaklanjut">
         <div class="row">
             <div class="col-sm-5">
                 <div class="form-group">
@@ -83,7 +83,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title">Laporan Data Penerimaan</h2>
+          <h2 class="card-title">Laporan Data Tindak Lanjut</h2>
           {{-- <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
               <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -111,26 +111,34 @@
   <tr>
     <th>No</th>
     <th>No Surat</th>
-    <th>Tanggal Tugas</th>
-    <th>Tanggal Pelaksanaan</th>
-    <th>Total Anggaran</th>
-    <th>Deskripsi</th>
-    <th>Petugas Lapangan</th>
+    <th>Tanggal Surat Dibuat</th>
+    <th>Tanggal Kejadian</th>
+    <th>Pelaku</th>
+    <th>Deskripsi Keterangan</th>
+    <th>kategori</th>
+    <th>Petugas Pemeriksa</th>
+    <th>Status</th>
   </tr>
 </thead>
 <tbody>
   @php
         $no=1;
         @endphp
-        @foreach ($penerimaan as $index => $item)
+        @foreach ($pelanggaran as $index => $item)
         <tr>
           <td class="px-6 py-2">{{ $loop->iteration }}</td>
-            <td class="px-6 py-2">{{ $item->nosurat }}</td>
-            <td class="px-6 py-2">{{ $item->tgltugas }}</td>
-            <td class="px-6 py-2">{{ $item->tglkembali }}</td>
-            <td class="px-6 py-2">Rp. {{ number_format($item->total_anggaran) }}</td>
-            <td class="px-6 py-2">{{ $item->deskripsi }}</td>
-            <td class="px-6 py-2">{{ $item->petugas_lapangan->nama }}</td>
+          <td class="px-6 py-2">{{ $item->nosurat }}</td>
+          <td class="px-6 py-2">{{ $item->tglsurat }}</td>
+          <td class="px-6 py-2">{{ $item->tglkejadian }}</td>
+          <td class="px-6 py-2">{{ $item->pelaku }}</td>
+          <td class="px-6 py-2">{{ $item->keterangan }}</td>
+          <td class="px-6 py-2">{{ $item->kategori }}</td>
+          <td class="px-6 py-2">{{ $item->petugas_lapangan->nama }}</td>
+          <td class="px-6 py-2">
+            <button type="submit" class="btn btn-success" {{ $item->status === 'approve' ? 'disabled' : '' }}>
+                {{ $item->status === 'approve' ? 'Approved' : 'Setujui' }}
+            </button>
+          </td>
             {{--
             <td class="project-actions text-right">
               <div class="btn-group btn-group-sm">
@@ -149,7 +157,7 @@
       </tbody>
     </table>
     <div class="text-center mt-5">
-      {{ $penerimaan->withQueryString()->links() }}
+      {{ $pelanggaran->withQueryString()->links() }}
       </div>
 </div>
 <!-- /.card-body -->
@@ -158,7 +166,7 @@
 </div>
 <div class="row no-print">
   <div class="col-12 mb-3">
-    <a href="{{ route('CtkPn', ['dari' => request()->input('dari'), 'sampai' => request()->input('sampai')]) }}" class="btn btn-danger float-right" style="margin-right: 5px;">
+    <a href="{{ route('Ctktindaklanjut', ['dari' => request()->input('dari'), 'sampai' => request()->input('sampai')]) }}" class="btn btn-danger float-right" style="margin-right: 5px;">
       <!-- <a href="javascript:window.print();" class="btn btn-danger btn-sm"> -->
           <i class="fa fa-file-pdf"></i> Export PDF
       </a>

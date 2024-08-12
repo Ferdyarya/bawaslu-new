@@ -135,6 +135,30 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('pelanggaran.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                  Surat pelanggaran
+              </p>
+            </a>
+        </li>
+          <li class="nav-item">
+            <a href="{{ route('tindaklanjut.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Surat Tindak Lanjut
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('pengawasan.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                  Surat Tugas Pengawas
+              </p>
+            </a>
+          </li>
         @endif
         @if(Auth::guard('web')->user()->role === 'supervisor')
         <li class="nav-item">
@@ -161,6 +185,7 @@
             </p>
           </a>
         </li>
+
         @endif
 
         @if(Auth::guard('web')->user()->role === 'staff')
@@ -240,6 +265,30 @@
               <a href="/laporan/lp-performa" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Laporan Peforma Petugas</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/laporan/lp-pelanggaran" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                    Laporan Surat pelanggaran
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/laporan/lp-tindaklanjut" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Laporan Surat Tindak Lanjut
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/laporan/lp-pengawasan" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Laporan Surat Tugas Pengawas
+                </p>
               </a>
             </li>
           </ul>

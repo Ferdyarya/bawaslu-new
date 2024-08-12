@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Staf;
-use App\Models\Surattugas;
-use App\Models\Petugas_lapangan;
-use App\Models\Penerimaan;
 use App\Models\Evaluasi;
+use App\Models\Penerimaan;
+use App\Models\Pengawasan;
+use App\Models\Surattugas;
+use App\Models\Pelanggaran;
+use Illuminate\Http\Request;
 use App\Models\Suratpenugasan;
+use App\Models\Petugas_lapangan;
 
 class LaporanController extends Controller
 {
@@ -37,7 +39,7 @@ class LaporanController extends Controller
 
 public function CtkSt(Request $request)
 {
-   
+
     $dari = $request->input('dari');
     $sampai = $request->input('sampai');
 
@@ -73,17 +75,17 @@ public function CtkSt(Request $request)
 
 public function CtkSp(Request $request)
 {
-   
+
     $dari = $request->input('dari');
     $sampai = $request->input('sampai');
-    
+
     $penugasan = session('penugasan');
 
     // Mengirimkan data ke view cetak-sp
     return view('laporan.cetak.cetak-sp', compact('penugasan', 'dari', 'sampai'));
 }
 
-////        
+////
     //penerimaan
     public function lpPenerimaan()
     {
@@ -109,10 +111,10 @@ public function CtkSp(Request $request)
 
 public function CtkPn(Request $request)
 {
-   
+
     $dari = $request->input('dari');
     $sampai = $request->input('sampai');
-    
+
     $penerimaan = session('penerimaan');
 
     // Mengirimkan data ke view cetak-sp
@@ -139,7 +141,7 @@ public function CtkPn(Request $request)
                             ->simplePaginate(10);
 
         session(['evaluasi' => $evaluasi]);
-        
+
         // Kembalikan data dalam bentuk yang sesuai (misalnya, dalam bentuk view)
         return view('laporan.lp-evaluasi', compact('evaluasi'));
     } catch (\Exception $e) {
@@ -151,10 +153,10 @@ public function CtkPn(Request $request)
 
 public function CtkEv(Request $request)
 {
-   
+
     $dari = $request->input('dari');
     $sampai = $request->input('sampai');
-    
+
     $evaluasi = session('evaluasi');
 
     // Mengirimkan data ke view cetak-sp
@@ -186,14 +188,126 @@ public function CtkEv(Request $request)
 }
 public function CtkPe(Request $request)
 {
-   
+
     $dari = $request->input('dari');
     $sampai = $request->input('sampai');
-    
+
     $performa = session('performa');
 
     // Mengirimkan data ke view cetak-sp
     return view('laporan.cetak.cetak-pe', compact('performa', 'dari', 'sampai'));
 }
+
+public function Ctkpengawasan(Request $request)
+{
+
+    $dari = $request->input('dari');
+    $sampai = $request->input('sampai');
+
+    $pengawasan = session('pengawasan');
+
+    // Mengirimkan data ke view cetak-sp
+    return view('laporan.cetak.cetak-pengawasan', compact('pengawasan', 'dari', 'sampai'));
+}
+public function Ctkpelanggaran(Request $request)
+{
+
+    $dari = $request->input('dari');
+    $sampai = $request->input('sampai');
+
+    $pelanggaran = session('pelanggaran');
+
+    // Mengirimkan data ke view cetak-sp
+    return view('laporan.cetak.cetak-pelanggaran', compact('pelanggaran', 'dari', 'sampai'));
+}
+public function Ctktindaklanjut(Request $request)
+{
+
+    $dari = $request->input('dari');
+    $sampai = $request->input('sampai');
+
+    $pelanggaran = session('pelanggaran');
+
+    // Mengirimkan data ke view cetak-sp
+    return view('laporan.cetak.cetak-tindaklanjut', compact('pelanggaran', 'dari', 'sampai'));
+}
+
+
+public function lppengawasan()
+{
+    $pengawasan = Pengawasan::simplePaginate(10); // Mengambil semua data Surattugas dari database
+    return view('laporan.lp-pengawasan', ['pengawasan' => $pengawasan]);
+}
+
+public function getpengawasan(Request $request)
+{
+$startDate = $request->input('dari');
+$endDate = $request->input('sampai');
+
+// Lakukan pengolahan data sesuai dengan rentang tanggal yang diterima
+$pengawasan = Pengawasan::whereDate('created_at', '>=', $startDate)
+                    ->whereDate('created_at', '<=', $endDate)
+                    ->simplePaginate(10);
+
+session(['pengawasan' => $pengawasan]);
+// Kembalikan data dalam bentuk yang sesuai (misalnya, dalam bentuk view)
+return view('laporan.lp-pengawasan', compact('pengawasan'));
+
+}
+
+public function lppelanggaran()
+{
+    $pelanggaran = Pelanggaran::simplePaginate(10); // Mengambil semua data Surattugas dari database
+    return view('laporan.lp-pelanggaran', ['pelanggaran' => $pelanggaran]);
+}
+
+public function getpelanggaran(Request $request)
+{
+$startDate = $request->input('dari');
+$endDate = $request->input('sampai');
+
+// Lakukan pengolahan data sesuai dengan rentang tanggal yang diterima
+$pelanggaran = Pelanggaran::whereDate('created_at', '>=', $startDate)
+                    ->whereDate('created_at', '<=', $endDate)
+                    ->simplePaginate(10);
+
+session(['pelanggaran' => $pelanggaran]);
+// Kembalikan data dalam bentuk yang sesuai (misalnya, dalam bentuk view)
+return view('laporan.lp-pelanggaran', compact('pelanggaran'));
+
+}
+
+public function lptindaklanjut()
+{
+    $pelanggaran = Pelanggaran::simplePaginate(10); // Mengambil semua data Surattugas dari database
+    return view('laporan.lp-tindaklanjut', ['pelanggaran' => $pelanggaran]);
+}
+
+public function gettindaklanjut(Request $request)
+{
+$startDate = $request->input('dari');
+$endDate = $request->input('sampai');
+
+// Lakukan pengolahan data sesuai dengan rentang tanggal yang diterima
+$pelanggaran = Pelanggaran::whereDate('created_at', '>=', $startDate)
+                    ->whereDate('created_at', '<=', $endDate)
+                    ->simplePaginate(10);
+
+session(['pelanggaran' => $pelanggaran]);
+// Kembalikan data dalam bentuk yang sesuai (misalnya, dalam bentuk view)
+return view('laporan.lp-tindaklanjut', compact('pelanggaran'));
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 }

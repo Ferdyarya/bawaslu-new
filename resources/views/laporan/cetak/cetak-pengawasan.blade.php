@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan Performa Petugas</title>
+    <title>Laporan Pengawasan</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
@@ -54,7 +54,7 @@
         text-align: center;
         line-height: 5px;
     }
-    
+
     @page {
             size: A4;
             margin: 1cm;
@@ -91,7 +91,7 @@
     </div>
 </center>
 <br>
-<h5><center><b>Laporan Performa Petugas</b></center></h5>
+<h5><center><b>Laporan Pengawasan</b></center></h5>
     <h6><center><p>Dari: {{ $dari }}  Sampai: {{ $sampai }}</p></center></h6>
     <div class="card-body">
         <div class="table-responsive">
@@ -99,30 +99,32 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Petugas</th>
-                <th>Jabatan</th>
-                <th>Performa</th>
-                <th>Deskripsi</th>
-                <th>Penilaian</th>
+                <th>No Surat</th>
+                <th>Tanggal Tugas</th>
+                <th>Tanggal Pelaksanaan</th>
+                <th>Keterangan</th>
+                <th>Penempatan</th>
+                <th>Petugas Lapangan</th>
             </tr>
         </thead>
         <tbody>
             @php
                   $no=1;
                   @endphp
-                  @foreach ($performa as $index => $item)
+                  @foreach ($pengawasan as $index => $item)
                   <tr>
                     <td class="px-6 py-2">{{ $loop->iteration }}</td>
-                      <td class="px-6 py-2">{{ $item->petugas_lapangan->nama }}</td>
-                      <td class="px-6 py-2">{{ $item->petugas_lapangan->jabatan }}</td>
-                      <td class="px-6 py-2">{{ $item->performa }}</td>
-                      <td class="px-6 py-2">{{ $item->deskripsi }}</td>
-                      <td class="px-6 py-2">{{ $item->penilaian }}</td>
+                    <td class="px-6 py-2">{{ $item->nosurat }}</td>
+                    <td class="px-6 py-2">{{ $item->tgltugas }}</td>
+                    <td class="px-6 py-2">{{ $item->tglpelaksana }}</td>
+                    <td class="px-6 py-2">{{ $item->tujuan }}</td>
+                    <td class="px-6 py-2">{{ $item->penempatan }}</td>
+                    <td class="px-6 py-2">{{ $item->petugas_lapangan->nama }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    
+
     <br>
     <br>
     <br>
@@ -174,7 +176,7 @@
     <tr><td></td></tr>
     <tr><td></td></tr>
     <tr><td></td></tr>
-    <tr><td></td></tr> 
+    <tr><td></td></tr>
     <tr><td></td></tr>
     <tr><td></td></tr>
     <tr><td></td></tr>
@@ -203,6 +205,7 @@
         width: 160%;
     }
 </style>
+
 <script>
     // Mengecek jumlah halaman dokumen saat mencetak
     window.onbeforeprint = function() {
@@ -219,5 +222,5 @@
         window.onload = function() {
             window.print();
         };
-    </script> 
+    </script>
     </html>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Surat Tugas</title>
+    <title>Surat Penugasan</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
@@ -106,7 +106,7 @@
     <tr>
         <td>
             <center>
-                <font size="4"><b>SURAT TUGAS</b></font><br>
+                <font size="4"><b>SURAT PENUGASAN</b></font><br>
                 <span>Nomor :{{ $item->nosurat }} </span>
             </center>
         </td>

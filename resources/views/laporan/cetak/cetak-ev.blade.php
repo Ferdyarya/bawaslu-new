@@ -122,6 +122,100 @@
             @endforeach
         </tbody>
     </table>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="signature-table">
+<table border="0" align="center" class="mt-20">
+    <tr>
+        <th style="text-align: center;"></th>
+        <th style="text-align: center;" width="100px"></th>
+        <th style="text-align: center;">Martapura,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ date(' F Y', strtotime($item->updated_at)) }}</th>
+    </tr>
+    <tr>
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;" class="signature-column"></td>
+        <td style="text-align: center;">Ketua Bawaslu Kabupaten Banjar</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr> 
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr>
+        <td style="text-align: center;" colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;"><b style="text-transform:uppercase"><u></u></b></td>
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;"><b><u>Muhammad Hafizh Ridha, S.H</u></b></td>
+    </tr>
+</table>
+</div>
+<style>
+    /* Default menyembunyikan tanda tangan */
+    .signature-table {
+        display: none;
+    }
+
+    /* Menampilkan tanda tangan di halaman terakhir */
+    .show-signature {
+        display: table;
+        position: fixed;
+        bottom: 0;
+        width: 160%;
+    }
+</style>
+
+<script>
+    // Mengecek jumlah halaman dokumen saat mencetak
+    window.onbeforeprint = function() {
+        var pages = document.querySelectorAll('body > div.page');
+
+        // Jika hanya ada satu halaman, tampilkan tanda tangan
+        if (pages.length <= 1) {
+            var signatureTable = document.querySelector('.signature-table');
+            signatureTable.classList.add('show-signature');
+        }
+    };
+</script>
     <script>
         window.onload = function() {
             window.print();
