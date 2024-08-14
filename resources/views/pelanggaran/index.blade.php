@@ -87,7 +87,7 @@
                 <th>No Surat</th>
                 <th>Tanggal Surat Dibuat</th>
                 <th>Tanggal Kejadian</th>
-                <th>Pelaku</th>
+                <th>Pelanggaran</th>
                 <th>Deskripsi Keterangan</th>
                 <th>kategori</th>
                 <th>Petugas Pemeriksa</th>

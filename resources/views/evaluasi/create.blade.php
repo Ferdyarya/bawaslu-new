@@ -66,9 +66,9 @@
                                           </div>
                                           <input type="hidden" name="id_laporan[]" id="id_laporan">
                                         </div>
-                                    <div class="form-group">
+                                        <div class="form-group">
                                             <label for="performa">Performa</label>
-                                            <input value="{{ old('performa') }}" name="performa[]" type="text" class="form-control" id="performa" required>
+                                            <textarea value="{{ old('performa') }}" rows="4" placeholder="Performa..." name="performa[]" type="text" class="form-control" id="performa" required> </textarea>
                                         </div>
                                         <div class="form-group">
                                           <label>Deskripsi</label>
@@ -212,28 +212,28 @@ function addpetugas(petugasId, petugasName) {
       </div>
     </div>
   </div>
-  
+
   <!-- JavaScript untuk menambahkan laporan yang dipilih ke kolom laporan -->
   <script>
   function addlaporan(laporanId, laporanName) {
     var selectedlaporanDiv = document.getElementById('selected_laporan');
-  
+
     // Hapus semua elemen anak dari div yang menampilkan laporan yang dipilih sebelumnya
     while (selectedlaporanDiv.firstChild) {
         selectedlaporanDiv.removeChild(selectedlaporanDiv.firstChild);
     }
-  
+
     // Tambahkan laporan yang baru dipilih
     var p = document.createElement('p');
     p.textContent = laporanName;
     selectedlaporanDiv.appendChild(p);
-  
+
     // Simpan ID laporan yang dipilih dalam input tersembunyi
     var selectedlaporanInput = document.getElementById('id_laporan');
     selectedlaporanInput.value = laporanId;
-  
+
     $('#ref-table-laporan').modal('hide');
   }
-  
+
   </script>
 </x-app-layout>

@@ -70,7 +70,7 @@
                                         </div>
                                     <div class="form-group">
                                             <label for="performa">Performa</label>
-                                            <input value="{{ $item->performa }}" name="performa" type="text" class="form-control" id="performa" required>
+                                            <textarea value="{{ $item->performa }}" name="performa" type="text" rows="4" placeholder="Performa..." class="form-control" id="performa" required></textarea>
                                         </div>
                                         <div class="form-group">
                                           <label>Deskripsi</label>
